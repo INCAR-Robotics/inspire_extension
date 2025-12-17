@@ -1,0 +1,16 @@
+[project]
+name = "inspire_extension"
+version = "0.0.1"
+description = "all core functionality of the incar skills system"
+authors = [
+    { name = "Jonne van Haastregt", email = "jmvh@kth.se" },
+    { name = "Michael C. Welle", email = "mwelle@kth.se" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pySerial"
+]
+
+[tool.setuptools]
+packages = ["incar"]
