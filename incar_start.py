@@ -3,8 +3,6 @@ import socket
 import time
 import traceback
 
-import numpy as np
-
 from incar.webrtc import WebRTCConnection
 from incar.messages.robot_command_pb2 import RobotCommand
 
@@ -32,14 +30,14 @@ class IncarHand:
     async def start(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
-        self.ip_core = s.getsockname()[0]
+        ip = s.getsockname()[0]
         s.close()
     
         future = asyncio.wait(
             [
-                asyncio.create_task(self._rtc.start_connection(self.ip_core, 9999, True)),
+                asyncio.create_task(self._rtc.start_connection(ip, 9999, True)),
                 asyncio.create_task(self._control_loop())
-                # self._state_publishing_loop()
+                # TODO: self._state_publishing_loop()
             ], 
             return_when=asyncio.FIRST_EXCEPTION
         )
@@ -95,5 +93,6 @@ class IncarHand:
 
 
 if __name__ == "__main__":
+    # TODO: Argparse for starting local/remote
     hand = IncarHand()
     asyncio.run(hand.start())
