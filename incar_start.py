@@ -59,7 +59,7 @@ class IncarHand:
             message_obj.ParseFromString(message)
             print(f"receiving message: {message_obj}")
 
-            command = message_obj.commands.get(f"left.commands.hand")
+            command = message_obj.commands.get(f"left.commands.hand.inspire")
             if command is not None:
                 print(f"with hand command: {command}")
                 self.command = [
