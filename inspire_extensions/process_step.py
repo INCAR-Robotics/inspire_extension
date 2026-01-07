@@ -11,12 +11,14 @@ from .retargeting import Retargeter
 @dataclass
 class InspireHandRemapping(PreProcessStep):
     hooks: list[ProcessHook] = field(default_factory = lambda: [ProcessHook.TELEOP_COMMAND])
-    hand_features: list[str] = field(default_factory = lambda: ["left.commands.hand", "right.commands.hand"])
+    hand_features: list[str] = field(default_factory = lambda: ["left.commands.hand.joints.position", "right.commands.hand.joints.position"])
+    processed_features: list[str] = field(default_factory = lambda: ["left.commands.hand.inspire", "right.commands.hand.inspire"])
 
     def __post_init__(self):
         self.retargeter = Retargeter()
 
     def process_single_frame(self, frame: dict):
+        counter = 0
         for key in frame.keys():
             if not key in self.hand_features: continue
             print(f'processing key {key}')
@@ -40,5 +42,5 @@ class InspireHandRemapping(PreProcessStep):
             # Adjust goal angles by subtracting from 1000
             goal_angles = 1000 - np.round(goal_angles)
 
-            frame[key] = goal_angles.tolist()
-            print("done processing")
+            frame[self.processed_features[counter]] = goal_angles.tolist()
+            counter += 1
