@@ -18,9 +18,14 @@ class InspireHandRemapping(PreProcessStep):
         self.retargeter = Retargeter()
 
     def process_single_frame(self, frame: dict):
-        counter = 0
+        # prevent foreach loop where keys of dict change during loop
+        keys = []
         for key in frame.keys():
-            if not key in self.hand_features: continue
+            if not key in self.hand_features:
+                continue 
+            keys.append(key)
+
+        for key in keys:
             print(f'processing key {key}')
 
             goal_angles = self.retargeter.map_joints_to_goal_angles(frame[key])
@@ -42,5 +47,5 @@ class InspireHandRemapping(PreProcessStep):
             # Adjust goal angles by subtracting from 1000
             goal_angles = 1000 - np.round(goal_angles)
 
-            frame[self.processed_features[counter]] = goal_angles.tolist()
-            counter += 1
+            corresponding_processed_key = self.processed_features[self.hand_features.index(key)]
+            frame[corresponding_processed_key] = goal_angles.tolist()

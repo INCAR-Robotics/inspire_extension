@@ -35,7 +35,7 @@ class IncarHand:
     
         future = asyncio.wait(
             [
-                asyncio.create_task(self._rtc.start_connection(ip, 9999, True)),
+                asyncio.create_task(self._rtc.start_connection("127.0.0.1", 9999, True)),
                 asyncio.create_task(self._control_loop())
                 # TODO: self._state_publishing_loop()
             ], 
