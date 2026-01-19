@@ -88,7 +88,7 @@ def write6(ser, id, str, val):
         print('函数调用错误，正确方式：str的值为\'angleSet\'/\'forceSet\'/\'speedSet\'，val为长度为6的list，值为0~1000，允许使用-1作为占位符')
 
 
-def read6(ser, id, str):
+def read6(ser, id, str) -> list[float]:
     if str == 'angleSet' or str == 'forceSet' or str == 'speedSet' or str == 'angleAct' or str == 'forceAct':
         val = readRegister(ser, id, regdict[str], 12, True)
         if len(val) < 12:
@@ -97,19 +97,10 @@ def read6(ser, id, str):
         val_act = []
         for i in range(6):
             val_act.append((val[2*i] & 0xFF) + (val[1 + 2*i] << 8))
-        print('读到的值依次为：', end='')
-        for i in range(6):
-            print(val_act[i], end=' ')
-        print()
+        return val_act
     elif str == 'errCode' or str == 'statusCode' or str == 'temp':
         val_act = readRegister(ser, id, regdict[str], 6, True)
-        if len(val_act) < 6:
-            print('没有读到数据')
-            return
-        print('读到的值依次为：', end='')
-        for i in range(6):
-            print(val_act[i], end=' ')
-        print()
+        return val_act
     else:
         print('函数调用错误，正确方式：str的值为\'angleSet\'/\'forceSet\'/\'speedSet\'/\'angleAct\'/\'forceAct\'/\'errCode\'/\'statusCode\'/\'temp\'')
 
