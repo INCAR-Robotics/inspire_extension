@@ -19,20 +19,22 @@ class InspireHandRemapping(PreProcessStep):
 
     def process_single_frame(self, frame: dict):
         # prevent foreach loop where keys of dict change during loop
-        keys = []
+        keys: list[str] = []
         for key in frame.keys():
             if not key in self.hand_features:
                 continue 
             keys.append(key)
 
         for key in keys:
-            print(f'processing key {key}')
-
             goal_angles = self.retargeter.map_joints_to_goal_angles(frame[key])
 
             scaling_factors = [1.4,1.3,1.3,1.3,4,5]
-            offset_factors = [0,0,0,0,0,-1.7]
+            if key.startswith("right"):
+                offset_factors = [0,0,0,0,0,1.4]
+                goal_angles[5] = -goal_angles[5]
 
+            if key.startswith("left"):
+                offset_factors = [0,0,0,0,0,-1.7]
             goal_angles = np.add(goal_angles, offset_factors)
             goal_angles = np.multiply(goal_angles, scaling_factors)
 
