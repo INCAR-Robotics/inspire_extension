@@ -1,7 +1,7 @@
 import numpy as np
 from copy import deepcopy
 
-from incar.messages.teleop_command_pb2 import HandJoints
+from incar_networking.messages.teleop_command_pb2 import HandJoints
 
 from .tf_transformations import quaternion_from_matrix, quaternion_matrix
 
