@@ -5,10 +5,8 @@ git clone https://github.com/INCAR-Robotics/inspire_extension.git
 cd inspire_extension
 pip install .
 ```
-2. In your incar_ws, go to `external/__init__.py` and add a line with the following: `import inspire_extensions`.
-3. Add the `inspire_hand_remapping` process step to the workspace config `teleop_processing` list.
-
-4. Start and use the incar app as usual. Start the hand with:
+2. Add the `inspire_hand_remapping` process step to the workspace config `command_processing` list.
+3. Start and use the incar app as usual. Start the hand with:
 ```bash
 python incar_start.py
 ```
