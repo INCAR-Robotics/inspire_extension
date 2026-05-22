@@ -72,7 +72,7 @@ class InspireHandGripper(ProcessStep):
 @dataclass
 class InspireGripperExamplePose(InspireHandGripper):
     """
-    Preset for basketbal grasp
+    Preset for example grasp
     """
     open_pose:  list[int] = field(default_factory=lambda: [900,  900,  1800, 1800, 1450, 850])
     close_pose: list[int] = field(default_factory=lambda: [900,  900,  1400,  1400,  1250,  850])

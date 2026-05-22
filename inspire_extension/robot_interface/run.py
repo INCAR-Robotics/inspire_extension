@@ -30,7 +30,7 @@ class InspireHand:
         except:
             traceback.print_exc()
 
-    def publish_state(self, interface: IncarRobotInterface):
+    def set_state_and_publish(self, interface: IncarRobotInterface):
         self.set_state(interface)
         interface.publish_state()
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             "right.commands.hand.inspire": robot.move_joints
         },
         loop_callbacks = [
-            robot.publish_state
+            robot.set_state_and_publish
         ]
     )
     interface.start("127.0.0.1")
