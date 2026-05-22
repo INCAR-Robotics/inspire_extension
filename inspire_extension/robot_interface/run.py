@@ -1,6 +1,6 @@
 import traceback
 
-from inspire_interface import openSerial, write6, read6
+from .inspire_interface import openSerial, write6, read6
 from incar_networking.robot_interface import IncarRobotInterface
 
 class InspireHand:
@@ -21,7 +21,7 @@ class InspireHand:
         except:
             traceback.print_exc()
     
-    def publish_state(self, interface: IncarRobotInterface):
+    def set_state(self, interface: IncarRobotInterface):
         try:
             currentAngles = read6(self.serial, 1, 'angleAct')
             currentForces = read6(self.serial, 1, 'forceAct')
@@ -29,6 +29,11 @@ class InspireHand:
             interface.publish_state()
         except:
             traceback.print_exc()
+
+    def publish_state(self, interface: IncarRobotInterface):
+        self.set_state(interface)
+        interface.publish_state()
+
 
 if __name__ == "__main__":
     robot = InspireHand()
