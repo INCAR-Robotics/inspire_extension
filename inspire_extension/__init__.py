@@ -1,1 +1,1 @@
-from .process_step import InspireHandRemapping, InspireHandGripper, InspireBasketballGripper
+from .process_step import InspireHandRemapping, InspireHandGripper, InspireGripperExamplePose

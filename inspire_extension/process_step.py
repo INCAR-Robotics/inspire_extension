@@ -50,7 +50,7 @@ class InspireHandGripper(ProcessStep):
     and close_pose directly for a custom grasp.
 
     Finger order: [pinky, ring, middle, index, thumb_flex, thumb_rot]
-    Angle range:  0 (fully open) – 1000 (fully closed), unit: 1/10 degree
+    Angle range:  0 (fully open) – 2000 (fully closed), unit: 1/10 degree
     """
     hooks: list[ProcessHook] = field(default_factory=lambda: [ProcessHook.TELEOP_COMMAND, ProcessHook.INFERENCE_COMMAND])
     gripper_features: list[str] = field(default_factory=lambda: ["left.commands.gripper.openclose", "right.commands.gripper.openclose"])
